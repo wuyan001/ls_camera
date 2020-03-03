@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+ 
+
+    sourceSets.main {
+        jniLibs.srcDirs = ['libs'];
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
+}
+
+//推荐放在module的gradle依赖文件的最后面
+publish {
+    //userOrg这个是用户的组织，我们创建的是个人帐号，也就是我们的用户名（后续会介绍，必须一致，改成你自己的bintrayName）
+    userOrg = 'woaiwojia257'
+    //我们的组id 类比'com.github.bumptech.glide:glide:3.7.0' 中的 com.github.bumptech.glide 这一部分
+    groupId = 'com.ty.ls'
+    artifactId = 'camera'// bintray创建的package
+    //原型id 类比'com.github.bumptech.glide:glide:3.7.0' 中的glide这一部分
+    //版本号 类比'com.github.bumptech.glide:glide:3.7.0' 中的3.7.0 这一部分。很重要，我们在更新aar文件的时候需要提升版本号，类似更新apk
+    publishVersion = '1.1.1'
+    //描述，大致介绍自己的类库
+    desc = 'ty.ls.camera'
+    //网址，可以写自己的github项目页面等
+    website = 'https://gitee.com/githubssss/ty_ls_lsg_camera.git'
+}
